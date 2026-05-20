@@ -1,0 +1,1452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Christina Rosie — Writer & Poet</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Outfit:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --cream: #FAF8F4;
+    --ink: #1A1814;
+    --mid: #7A7570;
+    --line: #E2DED8;
+    --accent: #C8A96E;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'Outfit', sans-serif;
+    font-weight: 300;
+    min-height: 100vh;
+  }
+
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 2rem 4rem;
+    background: var(--cream);
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.4s;
+  }
+  nav.scrolled { border-color: var(--line); }
+
+  .nav-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.25rem;
+    letter-spacing: 0.05em;
+    color: var(--ink);
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a {
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--mid);
+    text-decoration: none;
+    transition: color 0.2s;
+    cursor: pointer;
+  }
+  .nav-links a:hover { color: var(--ink); }
+
+  .page { display: none; }
+  .page.active { display: block; }
+
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding-top: 6rem;
+  }
+
+  .hero-left {
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 6rem 4rem;
+    border-right: 1px solid var(--line);
+    animation: fadeUp 1s ease both;
+  }
+
+  .hero-tag {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 2rem;
+  }
+
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3.5rem, 7vw, 6rem);
+    font-weight: 300;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: 2rem;
+  }
+
+  .hero-title em {
+    font-style: italic;
+    color: var(--mid);
+  }
+
+  .hero-sub {
+    font-size: 0.9rem;
+    color: var(--mid);
+    line-height: 1.8;
+    max-width: 34ch;
+    margin-bottom: 3rem;
+  }
+
+  .btn {
+    display: inline-flex; align-items: center; gap: 0.75rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px solid var(--ink);
+    padding-bottom: 0.25rem;
+    width: fit-content;
+    transition: gap 0.2s, color 0.2s;
+    cursor: pointer;
+    background: none;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    font-family: 'Outfit', sans-serif;
+  }
+  .btn:hover { gap: 1.25rem; color: var(--accent); border-bottom-color: var(--accent); }
+
+  .hero-right {
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 6rem 4rem;
+    animation: fadeUp 1s 0.2s ease both;
+    position: relative;
+  }
+
+  .hero-poem {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.15rem;
+    font-style: italic;
+    line-height: 2.2;
+    color: var(--mid);
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-poem-title {
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  .hero-number {
+    position: absolute;
+    top: 6rem; right: 4rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 8rem;
+    font-weight: 300;
+    color: var(--line);
+    line-height: 1;
+    user-select: none;
+  }
+
+  .divider {
+    display: flex; align-items: center; gap: 2rem;
+    padding: 3rem 4rem;
+    border-bottom: 1px solid var(--line);
+  }
+  .divider-line { flex: 1; height: 1px; background: var(--line); }
+  .divider-text {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--mid);
+    white-space: nowrap;
+  }
+
+  .poems-section { padding: 5rem 4rem; }
+
+  .section-header {
+    display: flex; align-items: baseline; justify-content: space-between;
+    margin-bottom: 4rem;
+  }
+
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.5rem;
+    font-weight: 300;
+  }
+
+  .poems-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    border-top: 1px solid var(--line);
+    border-left: 1px solid var(--line);
+  }
+
+  .poem-card {
+    border-right: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    padding: 2.5rem;
+    cursor: pointer;
+    transition: background 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .poem-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease;
+  }
+
+  .poem-card:hover { background: #F5F1EB; }
+  .poem-card:hover::after { transform: scaleX(1); }
+
+  .poem-num {
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+  }
+
+  .poem-card-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    font-weight: 300;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+  }
+
+  .poem-excerpt {
+    font-size: 0.85rem;
+    color: var(--mid);
+    line-height: 1.9;
+    font-style: italic;
+    margin-bottom: 2rem;
+    font-family: 'Cormorant Garamond', serif;
+  }
+
+  .poem-meta {
+    display: flex; align-items: center; justify-content: space-between;
+  }
+
+  .poem-tag {
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--mid);
+  }
+
+  .poem-arrow {
+    font-size: 0.9rem;
+    color: var(--ink);
+    opacity: 0;
+    transform: translateX(-8px);
+    transition: opacity 0.2s, transform 0.2s;
+  }
+  .poem-card:hover .poem-arrow { opacity: 1; transform: translateX(0); }
+
+  .poem-page {
+    padding-top: 8rem;
+    min-height: 100vh;
+  }
+
+  .poem-page-inner {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 4rem 4rem 8rem;
+  }
+
+  .poem-back {
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--mid);
+    cursor: pointer;
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    margin-bottom: 4rem;
+    background: none;
+    border: none;
+    font-family: 'Outfit', sans-serif;
+    transition: color 0.2s;
+  }
+  .poem-back:hover { color: var(--ink); }
+
+  .poem-page-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 300;
+    line-height: 1.1;
+    margin-bottom: 3rem;
+    letter-spacing: -0.02em;
+  }
+
+  .poem-page-divider {
+    width: 3rem;
+    height: 1px;
+    background: var(--accent);
+    margin-bottom: 3rem;
+  }
+
+  .poem-body {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.15rem;
+    line-height: 2.4;
+    color: var(--mid);
+    font-style: italic;
+    white-space: pre-wrap;
+  }
+
+  .paired-section {
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    margin: 2rem 0;
+  }
+
+  .paired-header {
+    padding: 2rem 4rem;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .paired-tag {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  .paired-poems {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .paired-poem {
+    padding: 4rem;
+  }
+
+  .paired-poem:first-child {
+    border-right: 1px solid var(--line);
+  }
+
+  .paired-poem-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem;
+    font-weight: 300;
+    margin-bottom: 2rem;
+    cursor: pointer;
+    transition: color 0.2s;
+  }
+  .paired-poem-title:hover { color: var(--accent); }
+
+  .about-page {
+    padding-top: 8rem;
+    min-height: 100vh;
+  }
+
+  .about-hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-bottom: 1px solid var(--line);
+    min-height: 60vh;
+  }
+
+  .about-left {
+    padding: 6rem 4rem;
+    border-right: 1px solid var(--line);
+    display: flex; flex-direction: column; justify-content: center;
+  }
+
+  .about-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3rem, 6vw, 5rem);
+    font-weight: 300;
+    line-height: 1.1;
+    margin-bottom: 2rem;
+  }
+
+  .about-text {
+    font-size: 0.9rem;
+    color: var(--mid);
+    line-height: 1.9;
+    max-width: 40ch;
+  }
+
+  .about-right {
+    padding: 6rem 4rem;
+    display: flex; flex-direction: column; justify-content: flex-end;
+  }
+
+  .about-quote {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    font-style: italic;
+    line-height: 1.8;
+    color: var(--mid);
+    margin-bottom: 1rem;
+  }
+
+  .about-quote-attr {
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  .about-strip {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .about-cell {
+    padding: 4rem;
+    border-right: 1px solid var(--line);
+  }
+  .about-cell:last-child { border-right: none; }
+
+  .about-cell-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3rem;
+    font-weight: 300;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+  }
+
+  .about-cell-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--mid);
+    margin-bottom: 1.5rem;
+  }
+
+  .about-cell-text {
+    font-size: 0.875rem;
+    color: var(--mid);
+    line-height: 1.9;
+  }
+
+  .contact-page {
+    padding-top: 8rem;
+    min-height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  .contact-inner {
+    max-width: 600px;
+    width: 100%;
+    padding: 4rem;
+    text-align: center;
+  }
+
+  .contact-tag {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 2rem;
+  }
+
+  .contact-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3.5rem;
+    font-weight: 300;
+    line-height: 1.1;
+    margin-bottom: 2rem;
+  }
+
+  .contact-text {
+    font-size: 0.9rem;
+    color: var(--mid);
+    line-height: 1.9;
+    margin-bottom: 3rem;
+  }
+
+  .contact-email {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px solid var(--accent);
+    padding-bottom: 0.25rem;
+    transition: color 0.2s;
+  }
+  .contact-email:hover { color: var(--accent); }
+
+  footer {
+    padding: 3rem 4rem;
+    display: flex; align-items: center; justify-content: space-between;
+    border-top: 1px solid var(--line);
+  }
+
+  .footer-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1rem;
+  }
+
+  .footer-note {
+    font-size: 0.75rem;
+    color: var(--mid);
+    letter-spacing: 0.05em;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  .indent-1 { padding-left: 2em; }
+  .indent-2 { padding-left: 4em; }
+  .indent-3 { padding-left: 6em; }
+  .indent-4 { padding-left: 8em; }
+  .indent-5 { padding-left: 10em; }
+  .indent-6 { padding-left: 12em; }
+  .indent-7 { padding-left: 14em; }
+  .indent-8 { padding-left: 16em; }
+
+  .poem-line { display: block; }
+  .poem-spacer { display: block; height: 1.2em; }
+
+  @media (max-width: 768px) {
+    nav { padding: 1.5rem 1.5rem; }
+    .nav-links { gap: 1.5rem; }
+
+    .hero {
+      grid-template-columns: 1fr;
+      min-height: auto;
+    }
+    .hero-left {
+      padding: 4rem 1.5rem 3rem;
+      border-right: none;
+      border-bottom: 1px solid var(--line);
+    }
+    .hero-right {
+      padding: 3rem 1.5rem 4rem;
+    }
+    .hero-number { display: none; }
+
+    .divider { padding: 2rem 1.5rem; }
+
+    .poems-section { padding: 3rem 1.5rem; }
+
+    .poems-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .paired-poems {
+      grid-template-columns: 1fr;
+    }
+    .paired-poem:first-child {
+      border-right: none;
+      border-bottom: 1px solid var(--line);
+    }
+    .paired-poem { padding: 2rem 1.5rem; }
+    .paired-header { padding: 1.5rem; }
+
+    .about-hero {
+      grid-template-columns: 1fr;
+    }
+    .about-left {
+      padding: 4rem 1.5rem 2rem;
+      border-right: none;
+      border-bottom: 1px solid var(--line);
+    }
+    .about-right { padding: 2rem 1.5rem 3rem; }
+
+    .about-strip {
+      grid-template-columns: 1fr;
+    }
+    .about-cell {
+      border-right: none;
+      border-bottom: 1px solid var(--line);
+      padding: 2rem 1.5rem;
+    }
+    .about-cell:last-child { border-bottom: none; }
+
+    .poem-page-inner {
+      padding: 2rem 1.5rem 5rem;
+    }
+
+    footer { padding: 2rem 1.5rem; }
+
+    .contact-inner { padding: 2rem 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <a class="nav-name" onclick="showPage('home')">Christina Rosie</a>
+  <ul class="nav-links">
+    <li><a onclick="showPage('poems')">Poems</a></li>
+    <li><a onclick="showPage('about')">About</a></li>
+    <li><a onclick="showPage('contact')">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HOME PAGE -->
+<div class="page active" id="page-home">
+  <section class="hero">
+    <div class="hero-left">
+      <p class="hero-tag">Writer & Poet</p>
+      <h1 class="hero-title">Poems from<br>the <em>Heart</em><br>(and the rest)</h1>
+      <p class="hero-sub">A collection of poems spanning twenty years — about survival, freedom, grief, and the small moments that carry us through.</p>
+      <button class="btn" onclick="showPage('poems')">Read the collection →</button>
+    </div>
+    <div class="hero-right">
+      <span class="hero-number">I.</span>
+      <p class="hero-poem">
+        Here I am. Take me.<br>
+        Tortured, I listen to the rain<br>
+        Hard and heavy it falls<br>
+        beating to the pulse of my heart<br>
+        awakening my soul.
+      </p>
+      <p class="hero-poem-title">— from "The Falling Rain"</p>
+    </div>
+  </section>
+
+  <div class="divider">
+    <div class="divider-line"></div>
+    <span class="divider-text">Selected Works</span>
+    <div class="divider-line"></div>
+  </div>
+
+  <section class="poems-section reveal">
+    <div class="section-header">
+      <h2 class="section-title">The Collection</h2>
+    </div>
+
+    <div class="poems-grid">
+      <div class="poem-card" onclick="showPoem(0)">
+        <p class="poem-num">01</p>
+        <h3 class="poem-card-title">The Falling Rain</h3>
+        <p class="poem-excerpt">Here I am. Take me.<br>Tortured, I listen to the rain<br>Hard and heavy it falls...</p>
+        <div class="poem-meta"><span class="poem-tag">Spirit</span><span class="poem-arrow">→</span></div>
+      </div>
+      <div class="poem-card" onclick="showPoem(1)">
+        <p class="poem-num">02</p>
+        <h3 class="poem-card-title">Destination Pending...</h3>
+        <p class="poem-excerpt">I collect my dreams in cupped hands.<br>I carry them close<br>afraid they may fall and shatter.</p>
+        <div class="poem-meta"><span class="poem-tag">Journey</span><span class="poem-arrow">→</span></div>
+      </div>
+      <div class="poem-card" onclick="showPoem(2)">
+        <p class="poem-num">03</p>
+        <h3 class="poem-card-title">Never Knew</h3>
+        <p class="poem-excerpt">I never knew when.<br>I never knew where.<br>Sinking, breathing, the deeper I go...</p>
+        <div class="poem-meta"><span class="poem-tag">Discovery</span><span class="poem-arrow">→</span></div>
+      </div>
+      <div class="poem-card" onclick="showPoem(3)">
+        <p class="poem-num">04</p>
+        <h3 class="poem-card-title">Sound the Alarm</h3>
+        <p class="poem-excerpt">We're dying out here,<br>a silent pandemic,<br>where the weakest of the herd...</p>
+        <div class="poem-meta"><span class="poem-tag">Resistance</span><span class="poem-arrow">→</span></div>
+      </div>
+      <div class="poem-card" onclick="showPoem(4)">
+        <p class="poem-num">05</p>
+        <h3 class="poem-card-title">Unedited</h3>
+        <p class="poem-excerpt">It doesn't happen overnight.<br>They don't hand you a red pen<br>and ask you to cross yourself out.</p>
+        <div class="poem-meta"><span class="poem-tag">Reclaiming</span><span class="poem-arrow">→</span></div>
+      </div>
+      <div class="poem-card" onclick="showPoem(5)">
+        <p class="poem-num">06</p>
+        <h3 class="poem-card-title">Edited</h3>
+        <p class="poem-excerpt">It didn't happen overnight.<br>I didn't hand them a red pen,<br>I made the corrections myself.</p>
+        <div class="poem-meta"><span class="poem-tag">The Other Side</span><span class="poem-arrow">→</span></div>
+      </div>
+      <div class="poem-card" onclick="showPoem(6)">
+        <p class="poem-num">07</p>
+        <h3 class="poem-card-title">Stardust</h3>
+        <p class="poem-excerpt">I've been there. I've felt the thunder.<br>I've ridden the storm,<br>I've been taken under.</p>
+        <div class="poem-meta"><span class="poem-tag">Encouragement</span><span class="poem-arrow">→</span></div>
+      </div>
+      <div class="poem-card" onclick="showPoem(7)">
+        <p class="poem-num">08</p>
+        <h3 class="poem-card-title">Promise</h3>
+        <p class="poem-excerpt">Before memory —<br>falling to the ground felt purposeful.<br>Part of something greater, calm as one.</p>
+        <div class="poem-meta"><span class="poem-tag">Hope</span><span class="poem-arrow">→</span></div>
+      </div>
+      <div class="poem-card" onclick="showPoem(8)">
+        <p class="poem-num">09</p>
+        <h3 class="poem-card-title">The Breakthrough</h3>
+        <p class="poem-excerpt">The breakthrough,<br>like the opening of a secret thread,<br>the one that matters, the one that is.</p>
+        <div class="poem-meta"><span class="poem-tag">Triumph</span><span class="poem-arrow">→</span></div>
+      </div>
+      <div class="poem-card" onclick="showPoem(9)">
+        <p class="poem-num">10</p>
+        <h3 class="poem-card-title">Self Selected</h3>
+        <p class="poem-excerpt">Stare at me now.<br>I choose my direction.<br>Trailing the gifts of this incredible journey.</p>
+        <div class="poem-meta"><span class="poem-tag">Transcendence</span><span class="poem-arrow">→</span></div>
+      </div>
+      <div class="poem-card" onclick="showPoem(10)">
+        <p class="poem-num">11</p>
+        <h3 class="poem-card-title">Believed</h3>
+        <p class="poem-excerpt">The tears flow, and the hope<br>of being believed is fading.<br>If I died right now, would you change your mind?</p>
+        <div class="poem-meta"><span class="poem-tag">Grief</span><span class="poem-arrow">→</span></div>
+      </div>
+      <div class="poem-card" onclick="showPoem(11)">
+        <p class="poem-num">12</p>
+        <h3 class="poem-card-title">Miner</h3>
+        <p class="poem-excerpt">I am grief.<br>Not the kind that whispers.<br>I dig.</p>
+        <div class="poem-meta"><span class="poem-tag">Loss</span><span class="poem-arrow">→</span></div>
+      </div>
+      <div class="poem-card" onclick="showPoem(12)">
+        <p class="poem-num">13</p>
+        <h3 class="poem-card-title">Here I Am</h3>
+        <p class="poem-excerpt">Did anyone notice<br>when the rope snapped?<br>When the water reached the crown of me —</p>
+        <div class="poem-meta"><span class="poem-tag">Childhood</span><span class="poem-arrow">→</span></div>
+      </div>
+      <div class="poem-card" onclick="showPoem(13)">
+        <p class="poem-num">14</p>
+        <h3 class="poem-card-title">To Sight</h3>
+        <p class="poem-excerpt">Head above water<br>just.<br>Looking over the edge, I hold on.</p>
+        <div class="poem-meta"><span class="poem-tag">Flight</span><span class="poem-arrow">→</span></div>
+      </div>
+      <div class="poem-card" onclick="showPoem(14)">
+        <p class="poem-num">15</p>
+        <h3 class="poem-card-title">The Oneness</h3>
+        <p class="poem-excerpt">Relax into change —<br>or continue the same?<br>Only my strength propels me...</p>
+        <div class="poem-meta"><span class="poem-tag">Spiritual</span><span class="poem-arrow">→</span></div>
+      </div>
+      <div class="poem-card" onclick="showPoem(15)">
+        <p class="poem-num">16</p>
+        <h3 class="poem-card-title">Love Me For Me</h3>
+        <p class="poem-excerpt">I see the look of despair<br>when you face me in the mirror.<br>Even the sun feels cruel...</p>
+        <div class="poem-meta"><span class="poem-tag">Body</span><span class="poem-arrow">→</span></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="paired-section reveal">
+    <div class="paired-header">
+      <p class="paired-tag">A pair — two voices, one story</p>
+    </div>
+    <div class="paired-poems">
+      <div class="paired-poem">
+        <h3 class="paired-poem-title" onclick="showPoem(4)">Unedited →</h3>
+        <p style="font-family:'Cormorant Garamond',serif; font-style:italic; color:var(--mid); line-height:2; font-size:1rem;">
+          It doesn't happen overnight.<br>
+          They don't hand you a red pen<br>
+          and ask you to cross yourself out.
+        </p>
+      </div>
+      <div class="paired-poem">
+        <h3 class="paired-poem-title" onclick="showPoem(5)">Edited →</h3>
+        <p style="font-family:'Cormorant Garamond',serif; font-style:italic; color:var(--mid); line-height:2; font-size:1rem;">
+          It didn't happen overnight.<br>
+          I didn't hand them a red pen,<br>
+          I made the corrections myself.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <span class="footer-name">Christina Rosie</span>
+    <span class="footer-note">© 2024 · All poems are my own</span>
+  </footer>
+</div>
+
+<!-- POEMS LIST PAGE -->
+<div class="page" id="page-poems">
+  <div style="padding-top:8rem;">
+    <div class="poems-section">
+      <div class="section-header">
+        <h2 class="section-title">All Poems</h2>
+      </div>
+      <div class="poems-grid">
+        <div class="poem-card" onclick="showPoem(0)"><p class="poem-num">01</p><h3 class="poem-card-title">The Falling Rain</h3><p class="poem-excerpt">Spirit · Soaring</p><div class="poem-meta"><span class="poem-tag"></span><span class="poem-arrow">→</span></div></div>
+        <div class="poem-card" onclick="showPoem(1)"><p class="poem-num">02</p><h3 class="poem-card-title">Destination Pending...</h3><p class="poem-excerpt">Journey · Searching</p><div class="poem-meta"><span class="poem-tag"></span><span class="poem-arrow">→</span></div></div>
+        <div class="poem-card" onclick="showPoem(2)"><p class="poem-num">03</p><h3 class="poem-card-title">Never Knew</h3><p class="poem-excerpt">Discovery · Joy</p><div class="poem-meta"><span class="poem-tag"></span><span class="poem-arrow">→</span></div></div>
+        <div class="poem-card" onclick="showPoem(3)"><p class="poem-num">04</p><h3 class="poem-card-title">Sound the Alarm</h3><p class="poem-excerpt">Resistance · Power</p><div class="poem-meta"><span class="poem-tag"></span><span class="poem-arrow">→</span></div></div>
+        <div class="poem-card" onclick="showPoem(4)"><p class="poem-num">05</p><h3 class="poem-card-title">Unedited</h3><p class="poem-excerpt">Reclaiming · Survival</p><div class="poem-meta"><span class="poem-tag"></span><span class="poem-arrow">→</span></div></div>
+        <div class="poem-card" onclick="showPoem(5)"><p class="poem-num">06</p><h3 class="poem-card-title">Edited</h3><p class="poem-excerpt">The Other Voice</p><div class="poem-meta"><span class="poem-tag"></span><span class="poem-arrow">→</span></div></div>
+        <div class="poem-card" onclick="showPoem(6)"><p class="poem-num">07</p><h3 class="poem-card-title">Stardust</h3><p class="poem-excerpt">Encouragement · Light</p><div class="poem-meta"><span class="poem-tag"></span><span class="poem-arrow">→</span></div></div>
+        <div class="poem-card" onclick="showPoem(7)"><p class="poem-num">08</p><h3 class="poem-card-title">Promise</h3><p class="poem-excerpt">Hope · Renewal</p><div class="poem-meta"><span class="poem-tag"></span><span class="poem-arrow">→</span></div></div>
+        <div class="poem-card" onclick="showPoem(8)"><p class="poem-num">09</p><h3 class="poem-card-title">The Breakthrough</h3><p class="poem-excerpt">Triumph · Freedom</p><div class="poem-meta"><span class="poem-tag"></span><span class="poem-arrow">→</span></div></div>
+        <div class="poem-card" onclick="showPoem(9)"><p class="poem-num">10</p><h3 class="poem-card-title">Self Selected</h3><p class="poem-excerpt">Transcendence · Flight</p><div class="poem-meta"><span class="poem-tag"></span><span class="poem-arrow">→</span></div></div>
+        <div class="poem-card" onclick="showPoem(10)"><p class="poem-num">11</p><h3 class="poem-card-title">Believed</h3><p class="poem-excerpt">Grief · Love</p><div class="poem-meta"><span class="poem-tag"></span><span class="poem-arrow">→</span></div></div>
+        <div class="poem-card" onclick="showPoem(11)"><p class="poem-num">12</p><h3 class="poem-card-title">Miner</h3><p class="poem-excerpt">Loss · Light</p><div class="poem-meta"><span class="poem-tag"></span><span class="poem-arrow">→</span></div></div>
+        <div class="poem-card" onclick="showPoem(12)"><p class="poem-num">13</p><h3 class="poem-card-title">Here I Am</h3><p class="poem-excerpt">Childhood · Hope</p><div class="poem-meta"><span class="poem-tag"></span><span class="poem-arrow">→</span></div></div>
+        <div class="poem-card" onclick="showPoem(13)"><p class="poem-num">14</p><h3 class="poem-card-title">To Sight</h3><p class="poem-excerpt">Flight · Vision</p><div class="poem-meta"><span class="poem-tag"></span><span class="poem-arrow">→</span></div></div>
+        <div class="poem-card" onclick="showPoem(14)"><p class="poem-num">15</p><h3 class="poem-card-title">The Oneness</h3><p class="poem-excerpt">Spiritual · Threshold</p><div class="poem-meta"><span class="poem-tag"></span><span class="poem-arrow">→</span></div></div>
+        <div class="poem-card" onclick="showPoem(15)"><p class="poem-num">16</p><h3 class="poem-card-title">Love Me For Me</h3><p class="poem-excerpt">Body · Devotion</p><div class="poem-meta"><span class="poem-tag"></span><span class="poem-arrow">→</span></div></div>
+      </div>
+    </div>
+    <footer>
+      <span class="footer-name">Christina Rosie</span>
+      <span class="footer-note">© 2024 · All poems are my own</span>
+    </footer>
+  </div>
+</div>
+
+<!-- SINGLE POEM PAGE -->
+<div class="page" id="page-poem">
+  <div class="poem-page">
+    <div class="poem-page-inner">
+      <button class="poem-back" onclick="goBack()">← Back</button>
+      <h1 class="poem-page-title" id="poem-title"></h1>
+      <div class="poem-page-divider"></div>
+      <div class="poem-body" id="poem-body"></div>
+    </div>
+  </div>
+  <footer>
+    <span class="footer-name">Christina Rosie</span>
+    <span class="footer-note">© 2024 · All poems are my own</span>
+  </footer>
+</div>
+
+<!-- ABOUT PAGE -->
+<div class="page" id="page-about">
+  <div class="about-page">
+    <div class="about-hero">
+      <div class="about-left">
+        <p class="hero-tag">About</p>
+        <h1 class="about-title">Christina<br>Rosie</h1>
+        <p class="about-text">A writer and poet whose work spans twenty years of living, surviving, and finding language for the things that resist it. These poems move between grief and joy, silence and alarm, darkness and the light that insists on rising.</p>
+      </div>
+      <div class="about-right">
+        <p class="about-quote">"Not erased, but rewritten.<br>Not bound, but free—<br>still here. Unedited."</p>
+        <p class="about-quote-attr">— from Unedited</p>
+      </div>
+    </div>
+    <div class="about-strip">
+      <div class="about-cell">
+        <p class="about-cell-label">Poems</p>
+        <p class="about-cell-text">A collection that spans two decades, each poem a different season of the same voice.</p>
+      </div>
+      <div class="about-cell">
+        <p class="about-cell-num">20</p>
+        <p class="about-cell-label">Years of writing</p>
+        <p class="about-cell-text">From the first word to the last, this collection is a record of a life examined honestly.</p>
+      </div>
+      <div class="about-cell">
+        <p class="about-cell-num">∞</p>
+        <p class="about-cell-label">Still writing</p>
+        <p class="about-cell-text">Poetry as practice, not performance. These pages are a notebook made public.</p>
+      </div>
+    </div>
+    <footer>
+      <span class="footer-name">Christina Rosie</span>
+      <span class="footer-note">© 2024 · All poems are my own</span>
+    </footer>
+  </div>
+</div>
+
+<!-- CONTACT PAGE -->
+<div class="page" id="page-contact">
+  <div class="contact-page">
+    <div class="contact-inner">
+      <p class="contact-tag">Get in touch</p>
+      <h1 class="contact-title">Let's talk<br>about words.</h1>
+      <p class="contact-text">For collaborations, readings, or just to share what a poem meant to you — reach out.</p>
+      <a href="mailto:ckr.creative@icloud.com" class="contact-email">ckr.creative@icloud.com</a>
+    </div>
+  </div>
+  <footer>
+    <span class="footer-name">Christina Rosie</span>
+    <span class="footer-note">© 2024 · All poems are my own</span>
+  </footer>
+</div>
+
+<script>
+const poems = [
+  {
+    title: "The Falling Rain",
+    tag: "Spirit",
+    body: `Here I am. Take me.
+Tortured, I listen to the rain
+Hard and heavy it falls
+beating to the pulse of my heart
+awakening my soul.
+A bright shining culet
+Silky tight skin, frozen to touch
+Regardless of corrosion
+I, BEING AMAZING,
+Say diamonds are forever.
+Sweeping I flow,
+holding the wings of an eagle in flight
+Sacred opening, cover me down.
+As I soar over the lunar
+nothing can collapse my mind
+I laugh, to the passionate beauty
+the feeling in just one blossom
+one skyline, one note
+one beat of the drum.
+Listening to the falling rain
+ignites my thoughts
+Fires my spirit, applauding my heart,
+Takes me home over the horizon
+hard and heavy, soft and light.
+It lights the way.`
+  },
+  {
+    title: "Destination Pending...",
+    tag: "Journey",
+    body: `I collect my dreams in cupped hands.
+I carry them close afraid they may fall and shatter.
+The crisp forest floor aids my healing
+with each new step the wind lifts my shame,
+through empty branches, a call to freedom echoes — a shimmer of purpose
+only to vanish, like the love I once felt.
+My fresh white trainers hide cracked sore heels
+And my open wounds, are cradled in my arms
+hoping for release hidden from view.
+Even my tears refuse to greet me.
+Still, I beg for them to burn my cheeks,
+to sting, to taste their salt once again.
+But they elude me unbidden, unfair.
+My days begin to fade like my washed out black jeans.
+And I revisit the old questions:
+Who am I? How do I free myself
+from chains that still bind me?
+Can I escape the fear of death that freezes my breath?
+
+    So I ask myself, with whispered hope:
+        Am I wiser now? I'm much quieter now.
+    My mother sighs with cries
+        of another lifetime wasted
+            a chance never taken
+                a missed love, broken.
+    So I ride the wave of self-pity,
+        and my gut shrinks
+            with every punch it takes.`
+  },
+  {
+    title: "Never Knew",
+    tag: "Discovery",
+    body: `I never knew when. I never knew where.
+Sinking, breathing, the deeper I go, overcoming tension with the sweat on my brow
+It's never so great until suddenly— right now.
+Take it, I take it I expand within, growing as I run, faster than a storm on the whispers of time, relaxing into time.
+Touching the bliss— it's with me, with all.
+Peace resides, light clutters my heart. Its dance is like the sun, blinding my eyes, awakening the preciousness of potential, that's mine.
+Receiving the power, blasting through my veins. The safety is on and the steering locked.
+a radiant shower flows over me, whole
+never before standing so tall.
+The tallest tree beckons my call.
+I'll meet you there. I won't pass you by.`
+  },
+  {
+    title: "Sound the Alarm",
+    tag: "Resistance",
+    body: `We're dying out here,
+a silent pandemic,
+where the weakest of the herd
+are torn apart,
+like Sunday's lamb sliding off the bone.
+The earth's rotation waits for change,
+but the seasons come — and they go.
+Muffled echoes drift from next door,
+where silence bruises louder than fists.
+We turn up the volume,
+tuning out what isn't ours to carry.
+Uncontrollable men,
+with their overblown self-evaluations
+and under-developed self-realisations
+masquerade as love
+a chokehold dressed in vows,
+stealing the breath
+that still clings to their names.
+So let them die too:
+Let them know
+this is as far as we will take it.
+Lay down your bloodthirsty fists,
+your arrows of death,
+still aimed at suffragette queens
+and the maids of court since time began.
+We changed our minds.
+We fled to safety,
+broke free from the anchor chains
+dragging us to the ocean floor,
+to give new hope to our children,
+to change the narrative,
+to shift the balance for generations to come.
+We're dying out here
+a one-sided pandemic,
+treated like the weather,
+like tea and toast,
+like something we learn to live with.
+All the while our bones are breaking,
+our insides full of holes,
+our bodies discarded
+by the same hands
+that pour the wine and pass the bread.
+So hear this:
+we are more than the roles assigned to us.
+More than what's been decided for us.
+We are the first bloom of spring,
+the hush before the tide turns,
+the light that insists on rising.
+Our beauty, our importance
+rivals the stars.
+So sound the alarm.
+Let the bells ring out across the world.
+For we are dying out here
+and we will not disappear quietly.`
+  },
+  {
+    title: "Unedited",
+    tag: "Reclaiming",
+    body: `It doesn't happen overnight.
+They don't hand you a red pen and ask you to cross yourself out.
+It happens slowly, edits made in passing:
+a raised eyebrow, a sigh, a joke with your name as the punchline.
+Then come the rules elastic, invisible, snapping tight around your throat.
+They start to proofread your life
+a word here, a tone there,
+whole sentences of yourself... struck off.
+
+You learn to shrink, to rewrite yourself in smaller letters,
+to apologise for feeling joy,
+for laughing too loud,
+for humming in the kitchen when they're tired.
+Each day, another line erased,
+each night another edit
+until your reflection blurs,
+and your voice becomes a marginal note.
+Gaslight by gaslight, they edit the evening,
+cut the parts where they forget to be kind.
+You fade between versions,
+called hysterical for naming the dark.
+
+You're told it's love.
+But love does not erase.
+Love does not rewrite the truth.
+Love is not kindness sharpened to a blade.
+Slowly, you reclaim the lines they tried to delete,
+and the mist clears.
+You find the original draft,
+Your name is still legible beneath the edits.
+Your scars speak in bold,
+your breath writes its first line:
+Not erased, but rewritten.
+Not bound, but free—still here.
+Unedited.`
+  },
+  {
+    title: "Edited",
+    tag: "The Other Voice",
+    body: `It didn't happen overnight.
+I didn't hand them a red pen,
+I made the corrections myself.
+I did it slowly, adjustments in passing:
+a raised eyebrow, a sigh, a joke that landed a little too hard.
+Then came the rules, soft at first,
+like hands on their shoulders,
+then tighter, to keep them safe.
+I started to proofread their life
+a word here, a tone there,
+the parts that made me look small — I crossed out.
+It's better this way.
+They learned to listen, to speak less,
+to move like gentle water around me.
+They called it fear, but I call it peace.
+Sometimes they laughed too loud
+I reminded them.
+Sometimes they hummed when I was tired
+I corrected them.
+I didn't mean to hurt;
+I was making them easier to love.
+Gaslight by gaslight, I fixed the story,
+cut the scenes that made me cruel.
+I moved between versions of myself —
+gentle, angry, loving, right.
+And when they questioned me,
+I called them hysterical,
+because someone has to hold the pen.
+They say love doesn't erase.
+But love is tidy.
+Love knows how to keep the margins clean.
+I keep every draft.
+I decide the final version
+their laughter, their light, their name blotted out,
+neatly.
+But still mine to read.`
+  },
+  {
+    title: "Stardust",
+    tag: "Encouragement",
+    body: `I've been there. I've felt the thunder
+I've ridden the storm, I've been taken under
+Every snowflake is different
+Everyone's journey is special
+To them.
+I'm hurt, but I'm not broken
+Surely
+No one really is disconnected
+Get over it, realise it.
+You are the greatest. You are the meaning
+You can create, I believe in you. I do
+Because you never gave up. You mastered technique
+You are stardust.`
+  },
+  {
+    title: "Promise",
+    tag: "Hope",
+    body: `Before memory —
+falling to the ground felt purposeful.
+Part of something greater —
+calm, peaceful.
+Soft and sparse
+like a gentle breeze on a hot summer's day.
+Scents of promise in the blossom,
+a sight to behold from the clouds above.
+
+But then —
+in a single moment, it turns.
+Beauty withers,
+shadows creep in.
+
+Waves of emotion, crash the lands
+tears cascading down
+                     rushing through generations
+of wounds that no longer serve us.
+
+And slowly, we breathe.
+long enough for darkness to lift
+the truest self to bloom,
+.
+                    For without the storm
+there is no clearing,
+without the wound
+there is no healing,
+without the rain —
+How will rainbows paint the sky?
+A promise, a gift.`
+  },
+  {
+    title: "The Breakthrough",
+    tag: "Triumph",
+    body: `The breakthrough,
+like the opening of a secret thread,
+The one that matters, the one that is.
+The meaning, the unfolding,
+The taste of victory.
+I win and so do you.
+Past just propels, and I dance and I soar,
+And I look down because I've looked up,
+And the endless cycle locks and loads,
+And I carry all the breath.
+Because I've come home and my weight shifts,
+And I balance at last.
+My sensational breakthrough.
+My steaming heart.`
+  },
+  {
+    title: "Self Selected",
+    tag: "Transcendence",
+    body: `Stare at me now.
+I choose my direction.
+Trailing the gifts
+Of this incredible journey.
+Helping us forward
+To gracious endings.
+Knowledge abundance,
+Dancing we move.
+Removing the chaos,
+That was once pulled
+down to our knees.
+Never knowing.
+Knocks to my soul,
+shakes my rift,
+my keys break off
+and my engine stutters —
+forced up by
+incredible banging,
+passion transcending,
+Within… Without.
+Acceptance runs through me,
+And I float through,
+On this universal ship,
+Closer and nearer to
+My ultimate ending.`
+  },
+  {
+    title: "Believed",
+    tag: "Grief",
+    body: `The tears flow, and the hope of
+being believed is fading.
+If I died right now, would you change your mind?
+Because existing in a world where you
+don't believe me—
+is a world I don't belong in.
+I miss your fun. I miss your face.
+I miss your wisdom. I miss your pranks.
+The yearning to see you again fills me with grief.
+Over and over, I think—
+I wish I could go back.
+
+Back to you.
+Back to the safety of your arms—
+to the bestest friend I've ever had,
+the greatest love I've ever known.`
+  },
+  {
+    title: "Miner",
+    tag: "Loss",
+    body: `I am grief.
+Not the kind that whispers.
+I dig.
+I get dirt in your lungs.
+I wait until night,
+when you put the shovel down.
+You thought I'd knock once,
+say sorry,
+and leave.
+But no.
+I moved in—
+boots on, pickaxe sharp—
+and started peeling back
+the half-healed prayers,
+the jokes you told
+to survive the funeral.
+You tried to bury me
+under busy days,
+neatly folded towels,
+polite forgettings.
+But I remember
+everything.
+I don't hate you.
+I carry a lantern.
+I mark the path.
+Let me do the digging.
+Let me move the layers
+like ruined cake,
+every slice
+a taste of what you lost
+and still carry.
+You rest.
+I'll stay in the space
+where your tears would have fallen.
+And in the dark—
+I'll find it.
+Something stuck.
+Small.
+Raw.
+Bright.
+Not clean, not whole—
+but yours.
+A diamond
+cut from hurt and holding on,
+catching the light
+where the sun rises,
+facing east.`
+  },
+  {
+    title: "Here I Am",
+    tag: "Childhood",
+    body: `Did anyone notice
+when the rope snapped?
+When the water reached the crown of me —
+
+Just a small body in the doorway.
+Broken.
+Like the old grandfather clock
+nobody winds.
+
+Everything collected, not chosen.
+Like rivers. Running. Nowhere.
+
+The smell of libraries from yesteryear —
+a childhood pressed between pages
+no one thought to open.
+
+Invisible.
+But the world stays silent.
+
+Nobody watching.
+No rules for the trees.
+No right way to breathe.
+Just safe, at last.
+The comfort of mud on small hands.
+Laughter nobody planned.
+Hope.`
+  },
+  {
+    title: "To Sight",
+    tag: "Flight",
+    body: `Head above water
+just.
+Looking over the edge
+I hold on.
+I dance around the rim
+falling in.
+Come on, fall in.
+Or don't, let go, reach up
+to see out, to breathe.
+To sight, a beautiful moment
+I see it, it never was.
+Visibility, seeking me out
+I feel the waves,
+crashing as I crouch
+I feel the ground,
+it opens my need
+My ever yearning desire
+makes sense.
+As I fly, evereluding the grasp
+the hold, that speaks.
+Surrounded
+in the substance of thought.
+Universal strobes
+sprinkle my sights
+Prolonging the flight.`
+  },
+  {
+    title: "The Oneness",
+    tag: "Spiritual",
+    body: `Relax into change —
+or continue the same?
+
+Only my own strength propels me —
+until now.
+
+Sleepless in strength,
+I search for the answer.
+Above my own reality now.
+Starting to see clearly.
+
+Belonging to the oneness,
+Belief in letting go.
+
+Crossing the bridge
+to the standing ovation
+of my heart.
+
+My soul.
+
+I rejoice in the possible —
+yet still I creep
+toward the beautiful image
+my heart yearns for.`
+  },
+  {
+    title: "Love Me For Me",
+    tag: "Body",
+    body: `I see the look of despair
+when you face me in the mirror.
+Even the sun feels cruel
+when there's somewhere to be —
+and so the spiral begins.
+
+You change.
+And change.
+And change again.
+Your hands are shaking.
+Your mouth is dry.
+The voice gets louder —
+ugly,
+old,
+past it.
+You can't think straight anymore.
+You can't stop.
+
+I feel it too, you know.
+Your judgements. Your cruel sighs.
+I notice every one.
+I know I'm not perfect —
+but who the hell is?
+
+Can't you see
+it's your mind that needs to change?
+Blinded
+to your own beauty.
+
+You forget.
+I was the shelter for your children,
+your armour in battle.
+Weathered everything you have —
+lover, nurturer,
+your comfort in the dark.
+
+I am yours completely.
+I never left.
+
+So please —
+love me for me.
+Not some image
+you want me to be.
+
+Can you do that?`
+  }
+];
+
+let previousPage = 'home';
+
+function showPage(page) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-' + page).classList.add('active');
+  window.scrollTo(0, 0);
+  setTimeout(() => {
+    document.querySelectorAll('.reveal').forEach(el => {
+      const rect = el.getBoundingClientRect();
+      if (rect.top < window.innerHeight) el.classList.add('visible');
+    });
+  }, 100);
+}
+
+function showPoem(index) {
+  previousPage = document.querySelector('.page.active').id.replace('page-', '');
+  const poem = poems[index];
+  document.getElementById('poem-title').textContent = poem.title;
+  
+  const lines = poem.body.split('\n');
+  let html = '';
+  lines.forEach(line => {
+    if (line.trim() === '') {
+      html += '<span class="poem-spacer"></span>';
+    } else {
+      const spaces = line.match(/^(\s+)/);
+      const indent = spaces ? Math.floor(spaces[1].length / 4) : 0;
+      const text = line.trim();
+      if (indent > 0) {
+        html += `<span class="poem-line indent-${Math.min(indent, 8)}">${text}</span>`;
+      } else {
+        html += `<span class="poem-line">${text}</span>`;
+      }
+    }
+  });
+  
+  document.getElementById('poem-body').innerHTML = html;
+  showPage('poem');
+}
+
+function goBack() {
+  showPage(previousPage);
+}
+
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 40);
+});
+
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
