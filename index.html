@@ -24,9 +24,7 @@
     font-family: 'Outfit', sans-serif;
     font-weight: 300;
     min-height: 100vh;
-  }
-
-  nav {
+  }nav {
     position: fixed; top: 0; left: 0; right: 0;
     z-index: 100;
     display: flex; align-items: center; justify-content: space-between;
@@ -85,27 +83,7 @@
 
   .hero-title {
     font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(3.5rem, 7vw, 6rem);
-    font-weight: 300;
-    line-height: 1.05;
-    letter-spacing: -0.02em;
-    margin-bottom: 2rem;
-  }
-
-  .hero-title em {
-    font-style: italic;
-    color: var(--mid);
-  }
-
-  .hero-sub {
-    font-size: 0.9rem;
-    color: var(--mid);
-    line-height: 1.8;
-    max-width: 34ch;
-    margin-bottom: 3rem;
-  }
-
-  .btn {
+    font-size: clamp(3..btn {
     display: inline-flex; align-items: center; gap: 0.75rem;
     font-size: 0.75rem;
     letter-spacing: 0.15em;
@@ -176,17 +154,7 @@
   .poems-section { padding: 5rem 4rem; }
 
   .section-header {
-    display: flex; align-items: baseline; justify-content: space-between;
-    margin-bottom: 4rem;
-  }
-
-  .section-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 2.5rem;
-    font-weight: 300;
-  }
-
-  .poems-grid {
+    display: flex; align-items: baseline; justify-co.poems-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 0;
@@ -311,9 +279,7 @@
     color: var(--mid);
     font-style: italic;
     white-space: pre-wrap;
-  }
-
-  .paired-section {
+  }.paired-section {
     border-top: 1px solid var(--line);
     border-bottom: 1px solid var(--line);
     margin: 2rem 0;
@@ -504,9 +470,7 @@
     font-size: 0.75rem;
     color: var(--mid);
     letter-spacing: 0.05em;
-  }
-
-  @keyframes fadeUp {
+  }@keyframes fadeUp {
     from { opacity: 0; transform: translateY(24px); }
     to { opacity: 1; transform: translateY(0); }
   }
@@ -529,11 +493,74 @@
 
   .poem-line { display: block; }
   .poem-spacer { display: block; height: 1.2em; }
+
+  @media (max-width: 768px) {
+    nav { padding: 1.5rem 1.5rem; }
+    .nav-links { gap: 1.5rem; }
+
+    .hero {
+      grid-template-columns: 1fr;
+      min-height: auto;
+    }
+    .hero-left {
+      padding: 4rem 1.5rem 3rem;
+      border-right: none;
+      border-bottom: 1px solid var(--line);
+    }
+    .hero-right {
+      padding: 3rem 1.5rem 4rem;
+    }
+    .hero-number { display: none; }
+
+    .divider { padding: 2rem 1.5rem; }
+
+    .poems-section { padding: 3rem 1.5rem; }
+
+    .poems-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .paired-poems {
+      grid-template-columns: 1fr;
+    }
+    .paired-poem:first-child {
+      border-right: none;
+      border-bottom: 1px solid var(--line);
+    }
+    .paired-poem { padding: 2rem 1.5rem; }
+    .paired-header { padding: 1.5rem; }
+
+    .about-hero {
+      grid-template-columns: 1fr;
+    }
+    .about-left {
+      padding: 4rem 1.5rem 2rem;
+      border-right: none;
+      border-bottom: 1px solid var(--line);
+    }
+    .about-right { padding: 2rem 1.5rem 3rem; }
+
+    .about-strip {
+      grid-template-columns: 1fr;
+    }
+    .about-cell {
+      border-right: none;
+      border-bottom: 1px solid var(--line);
+      padding: 2rem 1.5rem;
+    }
+    .about-cell:last-child { border-bottom: none; }
+
+    .poem-page-inner {
+      padding: 2rem 1.5rem 5rem;
+    }
+
+    footer { padding: 2rem 1.5rem; }
+
+    .contact-inner { padding: 2rem 1.5rem; }
+  }
 </style>
 </head>
-<body>
-
-<nav id="nav">
+<body><nav id="nav">
   <a class="nav-name" onclick="showPage('home')">Christina Rosie</a>
   <ul class="nav-links">
     <li><a onclick="showPage('poems')">Poems</a></li>
@@ -547,7 +574,7 @@
   <section class="hero">
     <div class="hero-left">
       <p class="hero-tag">Writer & Poet</p>
-      <h1 class="hero-title">Words<br>that <em>linger</em><br>after.</h1>
+      <h1 class="hero-title">Poems from<br>the <em>Heart</em><br>(and the rest)</h1>
       <p class="hero-sub">A collection of poems spanning twenty years — about survival, freedom, grief, and the small moments that carry us through.</p>
       <button class="btn" onclick="showPage('poems')">Read the collection →</button>
     </div>
@@ -574,7 +601,6 @@
     <div class="section-header">
       <h2 class="section-title">The Collection</h2>
     </div>
-
     <div class="poems-grid">
       <div class="poem-card" onclick="showPoem(0)">
         <p class="poem-num">01</p>
@@ -632,7 +658,7 @@
       </div>
       <div class="poem-card" onclick="showPoem(9)">
         <p class="poem-num">10</p>
-        <h3 class="poem-card-title">Stall</h3>
+        <h3 class="poem-card-title">Self Selected</h3>
         <p class="poem-excerpt">Stare at me now.<br>I choose my direction.<br>Trailing the gifts of this incredible journey.</p>
         <div class="poem-meta"><span class="poem-tag">Transcendence</span><span class="poem-arrow">→</span></div>
       </div>
@@ -650,8 +676,8 @@
       </div>
       <div class="poem-card" onclick="showPoem(12)">
         <p class="poem-num">13</p>
-        <h3 class="poem-card-title">Unnoticed</h3>
-        <p class="poem-excerpt">Did anyone notice<br>when the rope snapped?<br>When the water submerged —</p>
+        <h3 class="poem-card-title">Here I Am</h3>
+        <p class="poem-excerpt">Did anyone notice<br>when the rope snapped?<br>When the water reached the crown of me —</p>
         <div class="poem-meta"><span class="poem-tag">Childhood</span><span class="poem-arrow">→</span></div>
       </div>
       <div class="poem-card" onclick="showPoem(13)">
@@ -673,9 +699,7 @@
         <div class="poem-meta"><span class="poem-tag">Body</span><span class="poem-arrow">→</span></div>
       </div>
     </div>
-  </section>
-
-  <div class="paired-section reveal">
+  </section><div class="paired-section reveal">
     <div class="paired-header">
       <p class="paired-tag">A pair — two voices, one story</p>
     </div>
@@ -722,10 +746,10 @@
         <div class="poem-card" onclick="showPoem(6)"><p class="poem-num">07</p><h3 class="poem-card-title">Stardust</h3><p class="poem-excerpt">Encouragement · Light</p><div class="poem-meta"><span class="poem-tag"></span><span class="poem-arrow">→</span></div></div>
         <div class="poem-card" onclick="showPoem(7)"><p class="poem-num">08</p><h3 class="poem-card-title">Promise</h3><p class="poem-excerpt">Hope · Renewal</p><div class="poem-meta"><span class="poem-tag"></span><span class="poem-arrow">→</span></div></div>
         <div class="poem-card" onclick="showPoem(8)"><p class="poem-num">09</p><h3 class="poem-card-title">The Breakthrough</h3><p class="poem-excerpt">Triumph · Freedom</p><div class="poem-meta"><span class="poem-tag"></span><span class="poem-arrow">→</span></div></div>
-        <div class="poem-card" onclick="showPoem(9)"><p class="poem-num">10</p><h3 class="poem-card-title">Stall</h3><p class="poem-excerpt">Transcendence · Flight</p><div class="poem-meta"><span class="poem-tag"></span><span class="poem-arrow">→</span></div></div>
+        <div class="poem-card" onclick="showPoem(9)"><p class="poem-num">10</p><h3 class="poem-card-title">Self Selected</h3><p class="poem-excerpt">Transcendence · Flight</p><div class="poem-meta"><span class="poem-tag"></span><span class="poem-arrow">→</span></div></div>
         <div class="poem-card" onclick="showPoem(10)"><p class="poem-num">11</p><h3 class="poem-card-title">Believed</h3><p class="poem-excerpt">Grief · Love</p><div class="poem-meta"><span class="poem-tag"></span><span class="poem-arrow">→</span></div></div>
         <div class="poem-card" onclick="showPoem(11)"><p class="poem-num">12</p><h3 class="poem-card-title">Miner</h3><p class="poem-excerpt">Loss · Light</p><div class="poem-meta"><span class="poem-tag"></span><span class="poem-arrow">→</span></div></div>
-        <div class="poem-card" onclick="showPoem(12)"><p class="poem-num">13</p><h3 class="poem-card-title">Unnoticed</h3><p class="poem-excerpt">Childhood · Hope</p><div class="poem-meta"><span class="poem-tag"></span><span class="poem-arrow">→</span></div></div>
+        <div class="poem-card" onclick="showPoem(12)"><p class="poem-num">13</p><h3 class="poem-card-title">Here I Am</h3><p class="poem-excerpt">Childhood · Hope</p><div class="poem-meta"><span class="poem-tag"></span><span class="poem-arrow">→</span></div></div>
         <div class="poem-card" onclick="showPoem(13)"><p class="poem-num">14</p><h3 class="poem-card-title">To Sight</h3><p class="poem-excerpt">Flight · Vision</p><div class="poem-meta"><span class="poem-tag"></span><span class="poem-arrow">→</span></div></div>
         <div class="poem-card" onclick="showPoem(14)"><p class="poem-num">15</p><h3 class="poem-card-title">The Oneness</h3><p class="poem-excerpt">Spiritual · Threshold</p><div class="poem-meta"><span class="poem-tag"></span><span class="poem-arrow">→</span></div></div>
         <div class="poem-card" onclick="showPoem(15)"><p class="poem-num">16</p><h3 class="poem-card-title">Love Me For Me</h3><p class="poem-excerpt">Body · Devotion</p><div class="poem-meta"><span class="poem-tag"></span><span class="poem-arrow">→</span></div></div>
@@ -770,7 +794,6 @@
     </div>
     <div class="about-strip">
       <div class="about-cell">
-        <p class="about-cell-num">16</p>
         <p class="about-cell-label">Poems</p>
         <p class="about-cell-text">A collection that spans two decades, each poem a different season of the same voice.</p>
       </div>
@@ -806,9 +829,7 @@
     <span class="footer-name">Christina Rosie</span>
     <span class="footer-note">© 2024 · All poems are my own</span>
   </footer>
-</div>
-
-<script>
+</div><script>
 const poems = [
   {
     title: "The Falling Rain",
@@ -1043,9 +1064,10 @@ You are stardust.`
   {
     title: "Promise",
     tag: "Hope",
-    body: `Before memory — falling to the ground felt purposeful.
-Part of something greater — calm, as one.
-
+    body: `Before memory —
+falling to the ground felt purposeful.
+Part of something greater —
+calm, peaceful.
 Soft and sparse
 like a gentle breeze on a hot summer's day.
 Scents of promise in the blossom,
@@ -1054,25 +1076,24 @@ a sight to behold from the clouds above.
 But then —
 in a single moment, it turns.
 Beauty withers,
-shadows closing in.
+shadows creep in.
 
-And fiercely,
-a waterfall of tears
-born from frustration,
-rushing through generations
+Waves of emotion, crash the lands
+tears cascading down
+                     rushing through generations
 of wounds that no longer serve us.
 
 And slowly, we breathe.
-Just long enough
-for love to bloom,
-and colour to return.
-
-For without the storm
+long enough for darkness to lift
+the truest self to bloom,
+.
+                    For without the storm
 there is no clearing,
 without the wound
 there is no healing,
 without the rain —
-no rainbow paints the sky.`
+How will rainbows paint the sky?
+A promise, a gift.`
   },
   {
     title: "The Breakthrough",
@@ -1093,7 +1114,7 @@ My sensational breakthrough.
 My steaming heart.`
   },
   {
-    title: "Stall",
+    title: "Self Selected",
     tag: "Transcendence",
     body: `Stare at me now.
 I choose my direction.
@@ -1171,7 +1192,7 @@ I carry a lantern.
 I mark the path.
 Let me do the digging.
 Let me move the layers
-like ruined cakes,
+like ruined cake,
 every slice
 a taste of what you lost
 and still carry.
@@ -1193,38 +1214,32 @@ where the sun rises,
 facing east.`
   },
   {
-    title: "Unnoticed",
+    title: "Here I Am",
     tag: "Childhood",
     body: `Did anyone notice
 when the rope snapped?
-When the water submerged —
+When the water reached the crown of me —
 
-A small precious body
-in the doorway.
+Just a small body in the doorway.
 Broken.
-Like the grandfather clock
-that ticks
-but never tocks.
+Like the old grandfather clock
+nobody winds.
 
-Mismatched carpet.
-Old furniture.
+Everything collected, not chosen.
+Like rivers. Running. Nowhere.
+
 The smell of libraries from yesteryear —
 a childhood pressed between pages
 no one thought to open.
 
 Invisible.
+But the world stays silent.
 
-Alarms ring out.
-Can't see the exit.
-Way out?
-
-Mud and branches and nobody watching.
+Nobody watching.
 No rules for the trees.
-No silence to get wrong.
-Just breathing.
-Just space.
-
-Mud on small hands.
+No right way to breathe.
+Just safe, at last.
+The comfort of mud on small hands.
 Laughter nobody planned.
 Hope.`
   },
@@ -1263,13 +1278,13 @@ Prolonging the flight.`
     body: `Relax into change —
 or continue the same?
 
-Only my strength propels me —
+Only my own strength propels me —
 until now.
 
 Sleepless in strength,
-I search for something more —
-above my own reality now.
-I see clearly.
+I search for the answer.
+Above my own reality now.
+Starting to see clearly.
 
 Belonging to the oneness,
 Belief in letting go.
@@ -1281,7 +1296,7 @@ of my heart.
 My soul.
 
 I rejoice in the possible —
-and still I creep
+yet still I creep
 toward the beautiful image
 my heart yearns for.`
   },
@@ -1317,16 +1332,15 @@ it's your mind that needs to change?
 Blinded
 to your own beauty.
 
+You forget.
 I was the shelter for your children,
 your armour in battle.
-I have survived
-everything you have.
-
-I'm your best friend. Your lover.
-Your comfort in the dark.
+Weathered everything you have —
+lover, nurturer,
+your comfort in the dark.
 
 I am yours completely.
-Never will I leave you.
+I never left.
 
 So please —
 love me for me.
